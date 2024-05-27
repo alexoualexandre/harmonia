@@ -26,9 +26,23 @@ const programs = [
   // Declare the action
   
   const browse = (req, res) => {
-    res.json(programs);
+    if (req.query.t != null) {
+      const filteredPrograms = programs.filter((program) =>
+        program.title.includes(req.query.t)
+      );
+  
+      res.json(filteredPrograms);
+    } else {
+      res.json(programs);
+    }
+  };
+
+  const read = (req, res) => {
+    console.info(req.params);
+  
+    res.send(`Hello Program ${req.params.id} !`);
   };
   
   // Export it to import it somewhere else
   
-  module.exports = { browse };
+  module.exports = { browse,read };
